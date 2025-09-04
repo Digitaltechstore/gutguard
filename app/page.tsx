@@ -89,38 +89,8 @@ export default function GutGuardApp() {
     return () => clearTimeout(timer)
   }, [])
 
-  const handleStripePayment = async (priceId: string) => {
-    setIsProcessingPayment(true)
-
-    try {
-      const response = await fetch("/api/create-checkout-session", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          priceId,
-          customerData: {
-            email: formData.email || "",
-            name: formData.name || "",
-          },
-        }),
-      })
-
-      const { sessionId } = await response.json()
-      const stripe = await stripePromise
-
-      if (stripe) {
-        const { error } = await stripe.redirectToCheckout({ sessionId })
-        if (error) {
-          console.error("Stripe checkout error:", error)
-        }
-      }
-    } catch (error) {
-      console.error("Payment processing error:", error)
-    } finally {
-      setIsProcessingPayment(false)
-    }
+  const handleStripePayment = (paymentLink: string) => {
+    window.open(paymentLink, "_blank")
   }
 
   if (showSplash) {
@@ -1347,10 +1317,9 @@ export default function GutGuardApp() {
               </div>
               <Button
                 className="w-full bg-gray-700 hover:bg-gray-600 text-white rounded-lg"
-                onClick={() => handleStripePayment("price_monthly_1499")}
-                disabled={isProcessingPayment}
+                onClick={() => handleStripePayment("https://buy.stripe.com/4gM28s8ycc8R0uP092bbG0p")}
               >
-                {isProcessingPayment ? "Processing..." : "Select"}
+                Select
               </Button>
             </div>
 
@@ -1369,10 +1338,9 @@ export default function GutGuardApp() {
               </div>
               <Button
                 className="w-full bg-gray-700 hover:bg-gray-600 text-white rounded-lg"
-                onClick={() => handleStripePayment("price_yearly_12999")}
-                disabled={isProcessingPayment}
+                onClick={() => handleStripePayment("https://buy.stripe.com/7sY9AU15KdcVb9t9JCbbG0q")}
               >
-                {isProcessingPayment ? "Processing..." : "Select"}
+                Select
               </Button>
             </div>
           </div>
