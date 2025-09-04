@@ -174,12 +174,7 @@ export default function OnboardingFlow() {
           <div className="flex-1 flex items-center justify-center">
             <div className="relative w-48 h-48 flex items-center justify-center">
               <svg className="w-full h-full" viewBox="0 0 200 200" fill="none">
-                <path
-                  d="M100 15 L170 35 Q180 45 180 65 Q180 120 100 185 Q20 120 20 65 Q20 45 30 35 L100 15 Z"
-                  fill="#f5f5dc"
-                  stroke="#1e3a5f"
-                  strokeWidth="6"
-                />
+                
 
                 <g transform="translate(150, 30)">
                   <rect x="0" y="8" width="12" height="24" fill="#4ade80" stroke="#1e3a5f" strokeWidth="2" rx="3" />
