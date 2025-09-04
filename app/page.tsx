@@ -10,8 +10,10 @@ import { Switch } from "@/components/ui/switch"
 import { ArrowLeft, Camera, Calendar } from "lucide-react"
 
 export default function OnboardingFlow() {
-  const splashLogoUrl = "/user_read_only_context/project_sources/ChatGPT-Image-Sep-4,-2025,-11_13_17-AM.png"
-  const welcomeLogoUrl = "/user_read_only_context/project_sources/ChatGPT-Image-Sep-4,-2025,-11_13_17-AM.png"
+  const splashLogoUrl =
+    "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Sep%204%2C%202025%2C%2011_13_17%20AM-bGGcsl8Nw36cKCvaoLaKewhYHdz91v.png"
+  const welcomeLogoUrl =
+    "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Sep%204%2C%202025%2C%2011_13_17%20AM-bGGcsl8Nw36cKCvaoLaKewhYHdz91v.png"
 
   const [showSplash, setShowSplash] = useState(true)
   const [currentStep, setCurrentStep] = useState(0)
