@@ -3,26 +3,17 @@
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Checkbox } from "@/components/ui/checkbox"
 import { Textarea } from "@/components/ui/textarea"
 import { Slider } from "@/components/ui/slider"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Calendar, Camera, ArrowLeft } from "lucide-react"
-import { loadStripe } from "@stripe/stripe-js"
 import { Switch } from "@/components/ui/switch"
+import { ArrowLeft, Camera, Calendar } from "lucide-react"
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "")
-
-export default function GutGuardApp() {
-  const splashLogoUrl =
-    "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Sep%204%2C%202025%2C%2011_13_17%20AM-bGGcsl8Nw36cKCvaoLaKewhYHdz91v.png"
-  const welcomeLogoUrl =
-    "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Sep%204%2C%202025%2C%2011_13_17%20AM-bGGcsl8Nw36cKCvaoLaKewhYHdz91v.png"
-
+export default function OnboardingFlow() {
   const [showSplash, setShowSplash] = useState(true)
   const [currentStep, setCurrentStep] = useState(0)
   const [showDashboard, setShowDashboard] = useState(false)
   const [dashboardTab, setDashboardTab] = useState("dashboard")
-  const [isProcessingPayment, setIsProcessingPayment] = useState(false)
 
   const [formData, setFormData] = useState({
     agreement: false,
@@ -49,9 +40,6 @@ export default function GutGuardApp() {
     activityLevel: "",
     sleepHours: "",
     stressLevel: [5],
-    // Added email and name fields for Stripe payments
-    email: "",
-    name: "",
   })
 
   const calculateBMI = () => {
@@ -89,20 +77,48 @@ export default function GutGuardApp() {
     return () => clearTimeout(timer)
   }, [])
 
-  const handleStripePayment = (paymentLink: string) => {
-    window.open(paymentLink, "_blank")
-  }
-
   if (showSplash) {
     return (
       <div className="min-h-screen bg-gray-900 flex items-center justify-center">
         <div className="text-center">
           <div className="relative w-32 h-32 mx-auto mb-8">
-            <img
-              src={splashLogoUrl || "/placeholder.svg"}
-              alt="GutGuard Logo"
-              className="w-full h-full object-contain animate-pulse"
-            />
+            <svg className="w-full h-full animate-pulse" viewBox="0 0 200 240" fill="none">
+              {/* Medieval shield outline */}
+              <path
+                d="M100 20 L160 35 Q175 45 175 65 L175 140 Q175 160 165 175 L100 220 L35 175 Q25 160 25 140 L25 65 Q25 45 40 35 L100 20 Z"
+                fill="#f8f6f0"
+                stroke="#2c3e50"
+                strokeWidth="4"
+              />
+
+              {/* Gut/digestive system clipart */}
+              <g transform="translate(100, 90)">
+                {/* Stomach */}
+                <ellipse cx="-15" cy="-20" rx="18" ry="25" fill="#e67e22" stroke="#2c3e50" strokeWidth="2" />
+
+                {/* Small intestine coils */}
+                <circle cx="-25" cy="10" r="8" fill="#d35400" stroke="#2c3e50" strokeWidth="1.5" />
+                <circle cx="-10" cy="15" r="7" fill="#d35400" stroke="#2c3e50" strokeWidth="1.5" />
+                <circle cx="5" cy="10" r="8" fill="#d35400" stroke="#2c3e50" strokeWidth="1.5" />
+                <circle cx="20" cy="5" r="6" fill="#d35400" stroke="#2c3e50" strokeWidth="1.5" />
+
+                {/* Large intestine frame */}
+                <path
+                  d="M -35 25 L 30 25 Q 35 25 35 30 L 35 45 Q 35 50 30 50 L -30 50 Q -35 50 -35 45 L -35 30 Q -35 25 -30 25"
+                  fill="none"
+                  stroke="#c0392b"
+                  strokeWidth="6"
+                  strokeLinecap="round"
+                />
+              </g>
+
+              {/* Green medical cross on the side */}
+              <g transform="translate(155, 50)">
+                <circle cx="12" cy="12" r="15" fill="#27ae60" stroke="#2c3e50" strokeWidth="2" />
+                <rect x="8" y="4" width="8" height="16" fill="white" rx="1" />
+                <rect x="4" y="8" width="16" height="8" fill="white" rx="1" />
+              </g>
+            </svg>
           </div>
 
           <h1 className="text-3xl font-bold text-white mb-2">GutGuard</h1>
@@ -157,11 +173,50 @@ export default function GutGuardApp() {
         <div className="max-w-sm mx-auto flex flex-col h-screen">
           <div className="flex-1 flex items-center justify-center">
             <div className="relative w-48 h-48 flex items-center justify-center">
-              <img
-                src={welcomeLogoUrl || "/placeholder.svg"}
-                alt="GutGuard Welcome Logo"
-                className="w-full h-full object-contain"
-              />
+              <svg className="w-full h-full" viewBox="0 0 200 200" fill="none">
+                <path
+                  d="M100 15 L170 35 Q180 45 180 65 Q180 120 100 185 Q20 120 20 65 Q20 45 30 35 L100 15 Z"
+                  fill="#f5f5dc"
+                  stroke="#1e3a5f"
+                  strokeWidth="6"
+                />
+
+                <g transform="translate(150, 30)">
+                  <rect x="0" y="8" width="12" height="24" fill="#4ade80" stroke="#1e3a5f" strokeWidth="2" rx="3" />
+                  <rect x="-6" y="14" width="24" height="12" fill="#4ade80" stroke="#1e3a5f" strokeWidth="2" rx="3" />
+                </g>
+
+                <path
+                  d="M75 55 Q85 50 95 55 Q105 60 110 70 Q115 80 110 90 Q105 100 95 95 Q85 90 80 80 Q75 70 75 55 Z"
+                  fill="#cd7c5c"
+                  stroke="#1e3a5f"
+                  strokeWidth="3"
+                />
+                <circle cx="90" cy="75" r="2.5" fill="#1e3a5f" />
+
+                <path
+                  d="M95 95 Q80 105 85 115 Q90 125 100 120 Q110 115 105 125 Q100 135 90 130 Q80 125 85 135 Q90 145 100 140 Q110 135 105 145 Q100 155 95 150"
+                  fill="none"
+                  stroke="#cd7c5c"
+                  strokeWidth="8"
+                  strokeLinecap="round"
+                />
+
+                <path
+                  d="M65 105 Q55 110 60 120 Q65 130 75 125 L125 125 Q135 130 140 120 Q145 110 135 105 L135 145 Q140 155 130 160 L70 160 Q60 155 65 145 Z"
+                  fill="none"
+                  stroke="#cd7c5c"
+                  strokeWidth="5"
+                  strokeLinecap="round"
+                />
+
+                <path
+                  d="M70 125 Q75 120 80 125 M90 125 Q95 120 100 125 M110 125 Q115 120 120 125"
+                  stroke="#cd7c5c"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                />
+              </svg>
             </div>
           </div>
 
@@ -1315,12 +1370,7 @@ export default function GutGuardApp() {
                   $14.99<span className="text-sm font-normal text-gray-400">/mo</span>
                 </span>
               </div>
-              <Button
-                className="w-full bg-gray-700 hover:bg-gray-600 text-white rounded-lg"
-                onClick={() => handleStripePayment("https://buy.stripe.com/4gM28s8ycc8R0uP092bbG0p")}
-              >
-                Select
-              </Button>
+              <Button className="w-full bg-gray-700 hover:bg-gray-600 text-white rounded-lg">Select</Button>
             </div>
 
             {/* Yearly Plan */}
@@ -1336,12 +1386,7 @@ export default function GutGuardApp() {
                   $129.99<span className="text-sm font-normal text-gray-400">/yr</span>
                 </span>
               </div>
-              <Button
-                className="w-full bg-gray-700 hover:bg-gray-600 text-white rounded-lg"
-                onClick={() => handleStripePayment("https://buy.stripe.com/7sY9AU15KdcVb9t9JCbbG0q")}
-              >
-                Select
-              </Button>
+              <Button className="w-full bg-gray-700 hover:bg-gray-600 text-white rounded-lg">Select</Button>
             </div>
           </div>
 
@@ -1475,8 +1520,7 @@ function DashboardScreen() {
                   <svg width="24" height="24" viewBox="0 0 24 24" className="text-blue-600">
                     <path
                       fill="currentColor"
-                      d="M12 15.5A3.5 3.5 0 0 1 8.5 12A3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5a3.5 3.5 0 0 1-3.5 3.5M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0  3.5 0 0 1 3.5 3.5a3.5 3.5 0 0 1-3.5 3.5M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0
-2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9z"
+                      d="M12 15.5A3.5 3.5 0 0 1 8.5 12A3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5a3.5 3.5 0 0 1-3.5 3.5M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9z"
                     />
                   </svg>
                 ),
