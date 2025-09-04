@@ -3,13 +3,16 @@
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Checkbox } from "@/components/ui/checkbox"
 import { Textarea } from "@/components/ui/textarea"
 import { Slider } from "@/components/ui/slider"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Calendar, Camera, ArrowLeft } from "lucide-react"
+import { loadStripe } from "@stripe/stripe-js"
 import { Switch } from "@/components/ui/switch"
-import { ArrowLeft, Camera, Calendar } from "lucide-react"
 
-export default function OnboardingFlow() {
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "")
+
+export default function GutGuardApp() {
   const splashLogoUrl =
     "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Sep%204%2C%202025%2C%2011_13_17%20AM-bGGcsl8Nw36cKCvaoLaKewhYHdz91v.png"
   const welcomeLogoUrl =
@@ -19,6 +22,7 @@ export default function OnboardingFlow() {
   const [currentStep, setCurrentStep] = useState(0)
   const [showDashboard, setShowDashboard] = useState(false)
   const [dashboardTab, setDashboardTab] = useState("dashboard")
+  const [isProcessingPayment, setIsProcessingPayment] = useState(false)
 
   const [formData, setFormData] = useState({
     agreement: false,
@@ -45,6 +49,9 @@ export default function OnboardingFlow() {
     activityLevel: "",
     sleepHours: "",
     stressLevel: [5],
+    // Added email and name fields for Stripe payments
+    email: "",
+    name: "",
   })
 
   const calculateBMI = () => {
@@ -81,6 +88,40 @@ export default function OnboardingFlow() {
 
     return () => clearTimeout(timer)
   }, [])
+
+  const handleStripePayment = async (priceId: string) => {
+    setIsProcessingPayment(true)
+
+    try {
+      const response = await fetch("/api/create-checkout-session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          priceId,
+          customerData: {
+            email: formData.email || "",
+            name: formData.name || "",
+          },
+        }),
+      })
+
+      const { sessionId } = await response.json()
+      const stripe = await stripePromise
+
+      if (stripe) {
+        const { error } = await stripe.redirectToCheckout({ sessionId })
+        if (error) {
+          console.error("Stripe checkout error:", error)
+        }
+      }
+    } catch (error) {
+      console.error("Payment processing error:", error)
+    } finally {
+      setIsProcessingPayment(false)
+    }
+  }
 
   if (showSplash) {
     return (
@@ -1304,7 +1345,13 @@ export default function OnboardingFlow() {
                   $14.99<span className="text-sm font-normal text-gray-400">/mo</span>
                 </span>
               </div>
-              <Button className="w-full bg-gray-700 hover:bg-gray-600 text-white rounded-lg">Select</Button>
+              <Button
+                className="w-full bg-gray-700 hover:bg-gray-600 text-white rounded-lg"
+                onClick={() => handleStripePayment("price_monthly_1499")}
+                disabled={isProcessingPayment}
+              >
+                {isProcessingPayment ? "Processing..." : "Select"}
+              </Button>
             </div>
 
             {/* Yearly Plan */}
@@ -1320,7 +1367,13 @@ export default function OnboardingFlow() {
                   $129.99<span className="text-sm font-normal text-gray-400">/yr</span>
                 </span>
               </div>
-              <Button className="w-full bg-gray-700 hover:bg-gray-600 text-white rounded-lg">Select</Button>
+              <Button
+                className="w-full bg-gray-700 hover:bg-gray-600 text-white rounded-lg"
+                onClick={() => handleStripePayment("price_yearly_12999")}
+                disabled={isProcessingPayment}
+              >
+                {isProcessingPayment ? "Processing..." : "Select"}
+              </Button>
             </div>
           </div>
 
