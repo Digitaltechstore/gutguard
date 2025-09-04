@@ -10,6 +10,9 @@ import { Switch } from "@/components/ui/switch"
 import { ArrowLeft, Camera, Calendar } from "lucide-react"
 
 export default function OnboardingFlow() {
+  const splashLogoUrl = "/user_read_only_context/project_sources/ChatGPT-Image-Sep-4,-2025,-11_13_17-AM.png"
+  const welcomeLogoUrl = "/user_read_only_context/project_sources/ChatGPT-Image-Sep-4,-2025,-11_13_17-AM.png"
+
   const [showSplash, setShowSplash] = useState(true)
   const [currentStep, setCurrentStep] = useState(0)
   const [showDashboard, setShowDashboard] = useState(false)
@@ -82,65 +85,11 @@ export default function OnboardingFlow() {
       <div className="min-h-screen bg-gray-900 flex items-center justify-center">
         <div className="text-center">
           <div className="relative w-32 h-32 mx-auto mb-8">
-            <svg className="w-full h-full animate-pulse" viewBox="0 0 200 240" fill="none">
-              {/* Shield outline */}
-              <path
-                d="M100 20 L160 40 Q170 50 170 70 Q170 120 100 200 Q30 120 30 70 Q30 50 40 40 L100 20 Z"
-                fill="#f5f5dc"
-                stroke="#1e3a5f"
-                strokeWidth="6"
-              />
-
-              {/* Digestive system illustration */}
-              <g transform="translate(100, 100)">
-                {/* Stomach */}
-                <path
-                  d="M-20 -30 Q-10 -40 0 -35 Q15 -30 20 -15 Q25 0 15 10 Q5 15 -5 10 Q-15 5 -20 -10 Q-25 -20 -20 -30 Z"
-                  fill="#cd7c5c"
-                  stroke="#1e3a5f"
-                  strokeWidth="3"
-                />
-                {/* Small cross on stomach */}
-                <g transform="translate(-5, -10)">
-                  <rect x="-1" y="-4" width="2" height="8" fill="#1e3a5f" />
-                  <rect x="-4" y="-1" width="8" height="2" fill="#1e3a5f" />
-                </g>
-
-                {/* Small intestine - wavy coiled pattern */}
-                <path
-                  d="M15 10 Q25 15 20 25 Q15 35 25 40 Q35 35 30 45 Q25 55 35 60 Q45 55 40 65"
-                  fill="none"
-                  stroke="#cd7c5c"
-                  strokeWidth="8"
-                  strokeLinecap="round"
-                />
-
-                {/* Large intestine - frame around small intestine */}
-                <path
-                  d="M-30 20 L40 20 Q50 20 50 30 L50 70 Q50 80 40 80 L-20 80 Q-30 80 -30 70 L-30 30 Q-30 20 -20 20"
-                  fill="none"
-                  stroke="#cd7c5c"
-                  strokeWidth="6"
-                  strokeLinecap="round"
-                />
-
-                {/* Intestinal segments */}
-                <g stroke="#cd7c5c" strokeWidth="4" strokeLinecap="round">
-                  <path d="M-25 25 Q-20 20 -15 25" />
-                  <path d="M-10 25 Q-5 20 0 25" />
-                  <path d="M5 25 Q10 20 15 25" />
-                  <path d="M20 25 Q25 20 30 25" />
-                  <path d="M35 25 Q40 20 45 25" />
-                </g>
-              </g>
-
-              {/* Green medical cross positioned on upper right */}
-              <g transform="translate(140, 60)">
-                <circle cx="0" cy="0" r="18" fill="#4ade80" stroke="#1e3a5f" strokeWidth="3" />
-                <rect x="-2" y="-10" width="4" height="20" fill="white" rx="1" />
-                <rect x="-10" y="-2" width="20" height="4" fill="white" rx="1" />
-              </g>
-            </svg>
+            <img
+              src={splashLogoUrl || "/placeholder.svg"}
+              alt="GutGuard Logo"
+              className="w-full h-full object-contain animate-pulse"
+            />
           </div>
 
           <h1 className="text-3xl font-bold text-white mb-2">GutGuard</h1>
@@ -195,43 +144,11 @@ export default function OnboardingFlow() {
         <div className="max-w-sm mx-auto flex flex-col h-screen">
           <div className="flex-1 flex items-center justify-center">
             <div className="relative w-48 h-48 flex items-center justify-center">
-              <svg className="w-full h-full" viewBox="0 0 200 200" fill="none">
-                <g transform="translate(150, 30)">
-                  <rect x="0" y="8" width="12" height="24" fill="#4ade80" stroke="#1e3a5f" strokeWidth="2" rx="3" />
-                  <rect x="-6" y="14" width="24" height="12" fill="#4ade80" stroke="#1e3a5f" strokeWidth="2" rx="3" />
-                </g>
-
-                <path
-                  d="M75 55 Q85 50 95 55 Q105 60 110 70 Q115 80 110 90 Q105 100 95 95 Q85 90 80 80 Q75 70 75 55 Z"
-                  fill="#cd7c5c"
-                  stroke="#1e3a5f"
-                  strokeWidth="3"
-                />
-                <circle cx="90" cy="75" r="2.5" fill="#1e3a5f" />
-
-                <path
-                  d="M95 95 Q80 105 85 115 Q90 125 100 120 Q110 115 105 125 Q100 135 90 130 Q80 125 85 135 Q90 145 100 140 Q110 135 105 145 Q100 155 95 150"
-                  fill="none"
-                  stroke="#cd7c5c"
-                  strokeWidth="8"
-                  strokeLinecap="round"
-                />
-
-                <path
-                  d="M65 105 Q55 110 60 120 Q65 130 75 125 L125 125 Q135 130 140 120 Q145 110 135 105 L135 145 Q140 155 130 160 L70 160 Q60 155 65 145 Z"
-                  fill="none"
-                  stroke="#cd7c5c"
-                  strokeWidth="5"
-                  strokeLinecap="round"
-                />
-
-                <path
-                  d="M70 125 Q75 120 80 125 M90 125 Q95 120 100 125 M110 125 Q115 120 120 125"
-                  stroke="#cd7c5c"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                />
-              </svg>
+              <img
+                src={welcomeLogoUrl || "/placeholder.svg"}
+                alt="GutGuard Welcome Logo"
+                className="w-full h-full object-contain"
+              />
             </div>
           </div>
 
