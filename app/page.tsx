@@ -83,40 +83,62 @@ export default function OnboardingFlow() {
         <div className="text-center">
           <div className="relative w-32 h-32 mx-auto mb-8">
             <svg className="w-full h-full animate-pulse" viewBox="0 0 200 240" fill="none">
-              {/* Medieval shield outline */}
+              {/* Shield outline */}
               <path
-                d="M100 20 L160 35 Q175 45 175 65 L175 140 Q175 160 165 175 L100 220 L35 175 Q25 160 25 140 L25 65 Q25 45 40 35 L100 20 Z"
-                fill="#f8f6f0"
-                stroke="#2c3e50"
-                strokeWidth="4"
+                d="M100 20 L160 40 Q170 50 170 70 Q170 120 100 200 Q30 120 30 70 Q30 50 40 40 L100 20 Z"
+                fill="#f5f5dc"
+                stroke="#1e3a5f"
+                strokeWidth="6"
               />
 
-              {/* Gut/digestive system clipart */}
-              <g transform="translate(100, 90)">
+              {/* Digestive system illustration */}
+              <g transform="translate(100, 100)">
                 {/* Stomach */}
-                <ellipse cx="-15" cy="-20" rx="18" ry="25" fill="#e67e22" stroke="#2c3e50" strokeWidth="2" />
-
-                {/* Small intestine coils */}
-                <circle cx="-25" cy="10" r="8" fill="#d35400" stroke="#2c3e50" strokeWidth="1.5" />
-                <circle cx="-10" cy="15" r="7" fill="#d35400" stroke="#2c3e50" strokeWidth="1.5" />
-                <circle cx="5" cy="10" r="8" fill="#d35400" stroke="#2c3e50" strokeWidth="1.5" />
-                <circle cx="20" cy="5" r="6" fill="#d35400" stroke="#2c3e50" strokeWidth="1.5" />
-
-                {/* Large intestine frame */}
                 <path
-                  d="M -35 25 L 30 25 Q 35 25 35 30 L 35 45 Q 35 50 30 50 L -30 50 Q -35 50 -35 45 L -35 30 Q -35 25 -30 25"
+                  d="M-20 -30 Q-10 -40 0 -35 Q15 -30 20 -15 Q25 0 15 10 Q5 15 -5 10 Q-15 5 -20 -10 Q-25 -20 -20 -30 Z"
+                  fill="#cd7c5c"
+                  stroke="#1e3a5f"
+                  strokeWidth="3"
+                />
+                {/* Small cross on stomach */}
+                <g transform="translate(-5, -10)">
+                  <rect x="-1" y="-4" width="2" height="8" fill="#1e3a5f" />
+                  <rect x="-4" y="-1" width="8" height="2" fill="#1e3a5f" />
+                </g>
+
+                {/* Small intestine - wavy coiled pattern */}
+                <path
+                  d="M15 10 Q25 15 20 25 Q15 35 25 40 Q35 35 30 45 Q25 55 35 60 Q45 55 40 65"
                   fill="none"
-                  stroke="#c0392b"
+                  stroke="#cd7c5c"
+                  strokeWidth="8"
+                  strokeLinecap="round"
+                />
+
+                {/* Large intestine - frame around small intestine */}
+                <path
+                  d="M-30 20 L40 20 Q50 20 50 30 L50 70 Q50 80 40 80 L-20 80 Q-30 80 -30 70 L-30 30 Q-30 20 -20 20"
+                  fill="none"
+                  stroke="#cd7c5c"
                   strokeWidth="6"
                   strokeLinecap="round"
                 />
+
+                {/* Intestinal segments */}
+                <g stroke="#cd7c5c" strokeWidth="4" strokeLinecap="round">
+                  <path d="M-25 25 Q-20 20 -15 25" />
+                  <path d="M-10 25 Q-5 20 0 25" />
+                  <path d="M5 25 Q10 20 15 25" />
+                  <path d="M20 25 Q25 20 30 25" />
+                  <path d="M35 25 Q40 20 45 25" />
+                </g>
               </g>
 
-              {/* Green medical cross on the side */}
-              <g transform="translate(155, 50)">
-                <circle cx="12" cy="12" r="15" fill="#27ae60" stroke="#2c3e50" strokeWidth="2" />
-                <rect x="8" y="4" width="8" height="16" fill="white" rx="1" />
-                <rect x="4" y="8" width="16" height="8" fill="white" rx="1" />
+              {/* Green medical cross positioned on upper right */}
+              <g transform="translate(140, 60)">
+                <circle cx="0" cy="0" r="18" fill="#4ade80" stroke="#1e3a5f" strokeWidth="3" />
+                <rect x="-2" y="-10" width="4" height="20" fill="white" rx="1" />
+                <rect x="-10" y="-2" width="20" height="4" fill="white" rx="1" />
               </g>
             </svg>
           </div>
@@ -174,8 +196,6 @@ export default function OnboardingFlow() {
           <div className="flex-1 flex items-center justify-center">
             <div className="relative w-48 h-48 flex items-center justify-center">
               <svg className="w-full h-full" viewBox="0 0 200 200" fill="none">
-                
-
                 <g transform="translate(150, 30)">
                   <rect x="0" y="8" width="12" height="24" fill="#4ade80" stroke="#1e3a5f" strokeWidth="2" rx="3" />
                   <rect x="-6" y="14" width="24" height="12" fill="#4ade80" stroke="#1e3a5f" strokeWidth="2" rx="3" />
@@ -1515,7 +1535,8 @@ function DashboardScreen() {
                   <svg width="24" height="24" viewBox="0 0 24 24" className="text-blue-600">
                     <path
                       fill="currentColor"
-                      d="M12 15.5A3.5 3.5 0 0 1 8.5 12A3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5a3.5 3.5 0 0 1-3.5 3.5M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9z"
+                      d="M12 15.5A3.5 3.5 0 0 1 8.5 12A3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5a3.5 3.5 0 0 1-3.5 3.5M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0  3.5 0 0 1 3.5 3.5a3.5 3.5 0 0 1-3.5 3.5M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0
+2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9z"
                     />
                   </svg>
                 ),
